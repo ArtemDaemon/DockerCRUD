@@ -1,0 +1,25 @@
+services:
+  pythonapp:
+    build: ./Python/
+    command: sh -c "sleep 10s; python3 ./main.py"
+    depends_on:
+      - mysql
+      - mongo
+
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
